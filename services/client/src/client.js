@@ -94,7 +94,8 @@ async function calculateRandomExpression(
 
   const headers = {};
   if (auth) {
-    headers["Authentication"] = `Bearer ${auth}`;
+    headers["Authentication"] = auth;
+    // headers["Authentication"] = `Bearer ${auth}`;
   }
 
   const result = await apiCall(hostname, expression, { headers });
