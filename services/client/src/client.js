@@ -92,7 +92,7 @@ async function calculateRandomExpression(
   const expression = randomExpression(expressionsConfig, 0, expressionsConfig);
   logger.info("client", "calculating", expression);
 
-  const headers = {};
+  console.log("Auth value:", auth);
   if (auth) {
     headers["Authentication"] = `Bearer ${auth}`;
   }
