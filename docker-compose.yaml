@@ -75,3 +75,14 @@ services:
       dockerfile: Dockerfile
     links:
       - calculator
+
+  number:
+    container_name: number
+    labels:
+      app: cloud-engineer-challenge
+    build:
+      context: services/number
+      dockerfile: Dockerfile
+    ports:
+      - "3009:80" # Choose a port, and make sure that it is not already in use.
+    
