@@ -151,15 +151,31 @@ router.post(
 
     const expression = request.body;
 
+    // if (!isValidExpression(expression)) {
+    //   return response.status(400).send({ error: "invalid expression" });
+    // }
+
+    // const result = await solveExpression(expression, {
+    //   requestId: request.context.requestId
+    // });
+
+    // return response.status(200).send({ type: "number", value: result });
     if (!isValidExpression(expression)) {
+      console.error("Invalid expression received:", expression);
       return response.status(400).send({ error: "invalid expression" });
     }
 
-    const result = await solveExpression(expression, {
-      requestId: request.context.requestId
-    });
+    try {
+      const result = await solveExpression(expression, {
+        requestId: request.context.requestId
+      });
 
-    return response.status(200).send({ type: "number", value: result });
+      console.log("Calculation result:", result);
+      return response.status(200).send({ type: "number", value: result });
+    } catch (error) {
+      console.error("Unexpected error while solving expression:", error);
+      return response.status(500).send({ error: "Internal server error" });
+    }
   })
 );
 
