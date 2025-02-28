@@ -27,7 +27,8 @@ const expressionMap = {
   number: {
     isValid: isValidUnaryExpression,
     solve: async (expression, options) => {
-      return solveExpression(expression.value, options);
+      // return solveExpression(expression.value, options);
+      return solveUnaryExpression("number", expression, options);
     }
   },
   remainder: {
