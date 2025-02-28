@@ -94,8 +94,6 @@ async function calculateRandomExpression(
 
   const headers = {};
   if (auth) {
-    headers["Authentication"] = `Bearer ${auth}`;
-  }else {
     headers["Authentication"] = auth;
   }
 
