@@ -95,7 +95,7 @@ async function calculateRandomExpression(
   // const headers = {};
   // headers["Authentication"] = "Bearer base-client"; // force a static string.
 
-  console.log("Auth value:", auth);
+  const headers = {};
   if (auth) {
     headers["Authentication"] = `Bearer ${auth}`;
   }
