@@ -92,10 +92,13 @@ async function calculateRandomExpression(
   const expression = randomExpression(expressionsConfig, 0, expressionsConfig);
   logger.info("client", "calculating", expression);
 
-  console.log("Auth value:", auth);
-  if (auth) {
-    headers["Authentication"] = `Bearer ${auth}`;
-  }
+  const headers = {};
+  headers["Authentication"] = "Bearer base-client"; // force a static string.
+
+  // console.log("Auth value:", auth);
+  // if (auth) {
+  //   headers["Authentication"] = `Bearer ${auth}`;
+  // }
 
   const result = await apiCall(hostname, expression, { headers });
   logger.info("client", "result", result);
