@@ -118,16 +118,16 @@ async function solveExpression(expression, options) {
 router.post(
   "/",
   asyncWrap(async (request, response) => {
-    // const auth = request.header("Authentication");
-    // if (!auth || !auth.startsWith("Bearer ")) {
-    //   return response
-    //     .status(401)
-    //     .send({ error: 'invalid "Authentication" header' });
-    // }
-    // request.context.logger.info("calculator", "client is authenticated", {
-    //   requestId: request.context.requestId,
-    //   client: auth
-    // });
+    const auth = request.header("Authentication");
+    if (!auth || !auth.startsWith("Bearer ")) {
+      return response
+        .status(401)
+        .send({ error: 'invalid "Authentication" header' });
+    }
+    request.context.logger.info("calculator", "client is authenticated", {
+      requestId: request.context.requestId,
+      client: auth
+    });
 
     const expression = request.body;
 
