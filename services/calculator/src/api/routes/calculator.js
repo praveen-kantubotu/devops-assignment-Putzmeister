@@ -59,8 +59,14 @@ function isValidUnaryExpression(expression) {
 }
 
 function isValidBinaryExpression(expression) {
+  // return (
+  //   isValidExpression(expression.left) && isValidExpression(expression.right)
+  // );
   return (
-    isValidExpression(expression.left) && isValidExpression(expression.right)
+    expression.left !== null &&
+    expression.right !== null &&
+    isValidExpression(expression.left) &&
+    isValidExpression(expression.right)
   );
 }
 
@@ -93,6 +99,10 @@ async function solveUnaryExpression(serviceName, expression, options) {
 async function solveBinaryExpression(serviceName, expression, options) {
   const left = await solveExpression(expression.left, options);
   const right = await solveExpression(expression.right, options);
+
+  if (right === null || right === undefined) {
+    throw new Error(`Invalid binary expression: right operand is null for ${serviceName}`);
+  }
 
   const response = await apiCall(
     serviceName,
