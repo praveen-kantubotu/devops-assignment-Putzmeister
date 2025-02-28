@@ -67,7 +67,19 @@ function randomExpression(expressionsConfig, depth = 0, current) {
       )
     };
   }
+  // Debug: Log what values are generated for left and right
+  const left = randomExpression(
+    expressionsConfig,
+    depth + 1,
+    expressionsConfig[expressionType]
+  );
+  const right = randomExpression(
+    expressionsConfig,
+    depth + 1,
+    expressionsConfig[expressionType]
+  );
 
+  console.log(`Generated expression: ${expressionType}, Left:`, left, `Right:`, right);
   return {
     type: expressionType,
     left: randomExpression(
