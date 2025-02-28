@@ -62,12 +62,14 @@ function isValidBinaryExpression(expression) {
   // return (
   //   isValidExpression(expression.left) && isValidExpression(expression.right)
   // );
-  return (
-    expression.left !== null &&
-    expression.right !== null &&
-    isValidExpression(expression.left) &&
-    isValidExpression(expression.right)
-  );
+  if (!expression || typeof expression !== "object") return false;
+  
+  if (expression.left === null || expression.left === undefined || 
+      expression.right === null || expression.right === undefined) {
+    return false;
+  }
+
+  return isValidExpression(expression.left) && isValidExpression(expression.right);
 }
 
 function isValidExpression(expression) {
@@ -97,20 +99,20 @@ async function solveUnaryExpression(serviceName, expression, options) {
 }
 
 async function solveBinaryExpression(serviceName, expression, options) {
+  if (!expression || typeof expression !== "object") {
+    throw new Error(`Invalid binary expression: expression is not an object for ${serviceName}`);
+  }
+
   const left = await solveExpression(expression.left, options);
   const right = await solveExpression(expression.right, options);
 
-  if (right === null || right === undefined) {
-    throw new Error(`Invalid binary expression: right operand is null for ${serviceName}`);
+  if (left === null || left === undefined || right === null || right === undefined) {
+    throw new Error(`Invalid binary expression: one or both operands are null for ${serviceName}`);
   }
 
   const response = await apiCall(
     serviceName,
-    {
-      type: serviceName,
-      left,
-      right
-    },
+    { type: serviceName, left, right },
     options
   );
 
