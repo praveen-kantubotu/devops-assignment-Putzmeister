@@ -95,17 +95,36 @@ async function solveBinaryExpression(serviceName, expression, options) {
   const left = await solveExpression(expression.left, options);
   const right = await solveExpression(expression.right, options);
 
-  const response = await apiCall(
-    serviceName,
-    {
-      type: serviceName,
-      left,
-      right
-    },
-    options
-  );
+  // const response = await apiCall(
+  //   serviceName,
+  //   {
+  //     type: serviceName,
+  //     left,
+  //     right
+  //   },
+  //   options
+  // );
 
-  return response.value;
+  // return response.value;
+  try {
+    const response = await apiCall(
+      serviceName,
+      {
+        type: serviceName,
+        left,
+        right,
+      },
+      options
+    );
+    return response.value;
+  } catch (error) {
+    if (error.response && error.response.status === 400) {
+      options.logger.error("calculator", `400 error from ${serviceName}`, error.response.data);
+      return response.status(400).send(error.response.data);
+    } else {
+      throw error;
+    }
+  }
 }
 
 async function solveExpression(expression, options) {
