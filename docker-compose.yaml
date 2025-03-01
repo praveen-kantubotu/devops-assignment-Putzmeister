@@ -8,7 +8,7 @@ services:
       context: services/calculator
       dockerfile: Dockerfile
     ports:
-      - 3000:80
+      - 80:80
     links:
       - addition
       - division
