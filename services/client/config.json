@@ -1,7 +1,7 @@
 {
   "logLevel": "info",
   "calculatorHostname": "calculator",
-  "auth": "Bearer binary-example",
+  "auth": "Bearer base-client",
   "mainLoopSleep": {
     "min": 1000,
     "max": 3000
